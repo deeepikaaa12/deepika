@@ -1,10 +1,28 @@
 clear all;
 clc;
-t=[0:0.01:10];
-a=sin(t);
-[sqnr,aquan,code]=mula_pcm(a,16,255);
-display('sqnr');
-plot(t,a,'-',t,aquan,'-');
+t = 0:0.01:10;
+a = sin(t);
+n = 64;
+mu = 255;
+[sqnr, aquan, code] = mula_pcm(a, n, mu);
+disp(sqnr);
+
+% Plot original signal and quantized signal
+figure;
+subplot(2, 1, 1);
+plot(t, a, '-', t, aquan, '-');
+legend('Original Signal', 'Quantized Signal');
+title('Original Signal and Quantized Signal');
+
+% Calculate quantization error
+error = a - aquan;
+
+% Plot quantization error
+subplot(2, 1, 2);
+plot(t, error, '-');
+xlabel('Time');
+ylabel('Quantization Error');
+title('Quantization Error');
 
 
 
