@@ -1,0 +1,40 @@
+close all;
+clear all;
+
+a = 2;
+t = 0:2*pi/50:2*pi;
+x = a*sin(t);
+l = length(x);
+plot(x, 'r')
+hold on
+
+delta_max = 1; % Maximum step size
+delta_min = 0.1; % Minimum step size
+delta = delta_max; % Initial step size
+
+xn(1) = 0; % Initialize xn(1)
+
+for i = 1:l
+    if x(i) > xn(i)
+        d(i) = 1;
+        xn(i+1) = xn(i) + delta;
+    else
+        d(i) = 0;
+        xn(i+1) = xn(i) - delta;
+    end
+    
+    % Adjust delta based on the difference between the current sample and the predicted value
+    if abs(x(i) - xn(i)) < delta
+        delta = delta / 2; % Decrease step size
+    else
+        delta = delta * 2; % Increase step size
+    end
+    
+    % Limit delta within the specified range
+    delta = max(delta_min, min(delta, delta_max));
+end
+
+stairs(xn, 'b')
+
+legend('Analog Signal', 'ADM')
+title('ADAPTIVE DELTA MODULATION')
