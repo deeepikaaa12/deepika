@@ -149,8 +149,8 @@ P2=(1/2)*erfc(sqrt(E));
 %Bipolar RZ/ RZ-AMI
 P3=(3/4)*erfc(sqrt(E/2));
 E=10*log10(E); % SNR in dB
+figure;
 semilogy(E,P1,'-k',E,P2,'-r',E,P3,'-b','LineWidth',2)
 legend('Unipolar NRZ','Polar NRZ and Manchester','Bipolar RZ/ RZ-AMI','Location','best');
 xlabel('SNR per bit, Eb/No(dB)');
 ylabel('Bit error probality Pe');
-
